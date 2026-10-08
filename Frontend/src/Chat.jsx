@@ -4,6 +4,7 @@ import { MyContext } from './MyContext';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
+import remarkGfm from 'remark-gfm';
 
 const Chat = () => {
   const {newChat, prevChats, reply} = useContext(MyContext);
@@ -40,7 +41,7 @@ const Chat = () => {
               {
                 chat.role === 'user'?
                 <p className='userMessage'>{chat.content}</p> : 
-                <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{chat.content}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>{chat.content}</ReactMarkdown>
               }
             </div>
           ) 
@@ -52,13 +53,13 @@ const Chat = () => {
               {
                 latestReply === null ? (
                   <div className='gptDiv' key={"non-typing"}>
-                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
                       {prevChats[prevChats.length-1].content}
                     </ReactMarkdown>
                   </div>
                 ) : (
                   <div className='gptDiv' key={"typing"}>
-                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
                       {latestReply}
                     </ReactMarkdown>
                   </div>
